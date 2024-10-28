@@ -1,24 +1,18 @@
 import React from 'react';
 import './postItemOne.css';
 import Link from 'next/link';
+import {PostProps} from '@/sections/Posts';
+import Image from 'next/image';
 
 export default function PostItemOne({large,item}:{
     large:boolean;
-    item:{
-        _id:string;
-        img:string;
-        category:string;
-        date:string;
-        title:string;
-        brief:string;
-        avatar:string;
-        author:string;
-    };
+    item:PostProps;
 }) {
   return (
     <div className ={`post-entry-1 ${large ? 'lg' :undefined}`}>
-        <Link href={`postitems/${item._id}`}>
-            <img src={`/${item.img}`} alt="" className="img-fluid" />
+        <Link href={`postitems/${item._id}`} style={{height:"200px"}} className="w-100  d-block overflow-hidden position-relative">
+            {/* <img src={`/${item.img}`} alt="" className="img-fluid" /> */}
+            <Image src={`/${item.img}`} alt="" fill style={{objectFit:"cover", objectPosition:"center"}}/>
         </Link>
         <div className="post-meta">
             <span className="date">{item.category}</span>

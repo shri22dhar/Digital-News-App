@@ -6,7 +6,7 @@ import PostItemOne from '@/components/PostItemOne';
 import TrendingtPost from '@/components/TrendingtPost';
 import Preloader from '@/components/Preloader';
 
-interface PostItem {
+ export interface PostProps {
   _id: string;
   img: string;
   category: string;
@@ -18,11 +18,21 @@ interface PostItem {
   trending?: boolean;
   top?: boolean;
 }
+export const initialPost={
+  _id: '',
+  img: '',
+  category: '',
+  date: '',
+  title: '',
+  brief: '',
+  avatar: '',
+  author: '',
+};
 
 export default function Posts() {
   const router = useRouter();
-  const [items, setItems] = useState<PostItem[]>([]);
-  const [item, setItem] = useState<PostItem | null>(null);
+  const [items, setItems] = useState<PostProps[]>([]);
+  const [item, setItem] = useState<PostProps | null>(null);
   const [loading, setLoading] = useState(true);
 
   const getItemsData = () => {
