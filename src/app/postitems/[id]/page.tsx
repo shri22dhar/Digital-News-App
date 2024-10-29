@@ -3,12 +3,15 @@ import { initialPost, PostProps } from '@/sections/Posts';
 import React,{useState,useEffect} from 'react';
 import './style.css';
 import Preloader from '@/components/Preloader';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import SidePostItem from '@/components/SidePostItem';
-import Image from 'next/image';
+// import Image from 'next/image';
+import Link from 'next/link';
 export default function PostItem() {
-    // const id :string = params.id;
+
     const {id} = useParams<{ id: string }>()
+
+    const router =useRouter();
 
     const[item,setItem] = useState(initialPost);
 
@@ -47,7 +50,25 @@ export default function PostItem() {
         getItemsData();
     },[]);
 
-
+    const handleDeletePost = async (id:string) => {
+        //delete post
+        try{
+            const response = await fetch(`/api/postitems/${id}`,{
+            method:"DELETE",
+            headers:{
+                "Content-Type":'application/json',
+            },
+            });
+            const result = response.status;
+            if(result===200){
+                console.log("Success",result);
+                router.push(`/postitems`);
+            }
+        }catch(error){
+            console.log("Error",error)
+        }
+        
+    };
   return (
     <main id="main">
         <section className="single-post-content">
@@ -75,17 +96,17 @@ export default function PostItem() {
                                 eos quae cumque. Accusamus fugiat architecto rerum animi atque eveniet, quo, praesentium dignissimos
                                 </p>
                                 <figure className="my-4">
-                                    <div className="w-100 h-25 overflow-hidden position-realtive">
-                                    <Image 
+                                    {/* <div className="w-100 h-25 overflow-hidden position-realtive"> */}
+                                    {/* <Image 
                                         src={`/${item.img}`}
                                         alt=""
                                         // className="img-fluid"
                                         width={100}
                                         height={100}
                                         // layout="responsive"
-                                    />
-                                    </div>
-                                    {/* <img src={`/${item.img}`} alt=""className="imd-fluid" /> */}
+                                    /> */}
+                                    {/* </div> */}
+                                    <img src={`/${item.img}`} alt=""className="imd-fluid" />
                                     <figcaption>
                                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero temporibus repudiandae, 
                                     inventore pariatur?
@@ -114,6 +135,14 @@ export default function PostItem() {
                                 eveniet praesentium, similique blanditiis molestiae ut saepe perspiciatis officia nemo,
                                 eos quae cumque. Accusamus fugiat architecto rerum animi atque eveniet, quo, praesentium dignissimos
                                 </p>
+                                <div className="d-flex justify-content-center gap-4">
+                                    <a className='btn btn-primary' onClick={()=>handleDeletePost(id)}>
+                                        <i className="bi bi-trash"></i>
+                                    </a>
+                                    <Link href={`/createpostitem/${id}`}className='btn btn-primary'>
+                                    <i className="bi bi-pen"></i>
+                                    </Link>
+                                </div>
                             </div>
                             ):(
                                 <Preloader />
