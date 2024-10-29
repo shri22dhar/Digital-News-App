@@ -1,7 +1,7 @@
 "use client";
 
-import { title } from 'process';
-import React,{useState,useEffect} from 'react';
+
+import React,{useState} from 'react';
 
 export const initialState = {
     title:'',

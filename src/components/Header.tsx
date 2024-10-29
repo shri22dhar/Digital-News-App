@@ -5,6 +5,7 @@ import './header.css';
 import Nav from './Nav';
 import Sci from './Sci';
 import SearchForm from './SearchForm';
+import Link from 'next/link';
 export default function Header() {
     const [open,setOpen] = useState(false);
     const[on,setOn] = useState(false);
@@ -25,10 +26,10 @@ export default function Header() {
         className="header d-flex align-items-center fixed-top"
      >    
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
-            <a href="/" className="logo d-flex align-items-center">
+            <Link href="/" className="logo d-flex align-items-center">
                 {/* <img src="" alt="" /> */}
                 <h1>DigitalNews</h1>
-            </a>
+            </Link>
             <Nav />
             <div className="position-relative">
                 <Sci />

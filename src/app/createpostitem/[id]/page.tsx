@@ -3,7 +3,7 @@
 import React,{useState,useEffect} from 'react';
 import { initialState } from '../page';
 import { useParams } from 'next/navigation';
-export default function EditPostItem({params}:{params:{id:string}}) {
+export default function EditPostItem() {
 
   // const {id} = params;
   const {id} = useParams<{ id: string;}>()
